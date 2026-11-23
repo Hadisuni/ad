@@ -37,10 +37,10 @@ export const AdGeneratorForm: React.FC<AdGeneratorFormProps> = ({
   ];
 
   const availableImages = [
-    { label: 'SMB Phone Receptionist (Marble Desk)', path: '/src/assets/images/ad_smb_receptionist_square_1794454357509.jpg' },
-    { label: 'Executive Document Ingestion HUD', path: '/src/assets/images/ad_enterprise_invoice_square_1794454358889.jpg' },
-    { label: 'Enterprise Glass Boardroom (16:9)', path: '/src/assets/images/ad_linkedin_enterprise_banner_1794454358791.jpg' },
-    { label: 'Reels Phone Answering (Twilight 9:16)', path: '/src/assets/images/ad_reels_phone_answering_1794454357907.jpg' }
+    { label: 'SMB Phone Receptionist (Marble Desk)', path: '/images/ad_smb_receptionist_square_1794454357509.jpg', alt: 'Phone on a marble reception desk showing an incoming AI receptionist call and a confirmed appointment' },
+    { label: 'Executive Document Ingestion HUD', path: '/images/ad_enterprise_invoice_square_1794454358889.jpg', alt: 'A laptop showing an invoice being read, with data lines flowing to a glowing ERP integration panel' },
+    { label: 'Enterprise Glass Boardroom (16:9)', path: '/images/ad_linkedin_enterprise_banner_1794454358791.jpg', alt: 'A tablet on a wooden desk showing an automated document workflow, with a city skyline behind a glass wall' },
+    { label: 'Reels Phone Answering (Twilight 9:16)', path: '/images/ad_reels_phone_answering_1794454357907.jpg', alt: 'A woman at a desk at night beside a phone showing a confirmed client appointment, city lights behind' }
   ];
 
   return (
@@ -179,7 +179,14 @@ export const AdGeneratorForm: React.FC<AdGeneratorFormProps> = ({
           </label>
           <select
             value={campaign.squareImage}
-            onChange={(e) => onChange({ ...campaign, squareImage: e.target.value })}
+            onChange={(e) =>
+              onChange({
+                ...campaign,
+                squareImage: e.target.value,
+                // The alt text describes the picture, so it follows the picture.
+                squareImageAlt: availableImages.find((img) => img.path === e.target.value)?.alt ?? '',
+              })
+            }
             className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white focus:outline-none focus:border-purple-500 text-xs"
           >
             {availableImages.map((img, i) => (

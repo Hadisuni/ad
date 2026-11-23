@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { imageAlt } from '../lib/adChecks';
 import { 
   Instagram, 
   Smartphone, 
@@ -246,7 +247,7 @@ ${campaign.googleSearch.sitelinks.map(s => `- **${s.title}**: ${s.desc}`).join('
               <div className="aspect-square bg-slate-900 relative group overflow-hidden">
                 <img
                   src={campaign.squareImage}
-                  alt={campaign.brandName}
+                  alt={imageAlt(campaign, 'square')}
                   className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
                 />
                 <div className="absolute bottom-3 left-3 px-3 py-1 bg-slate-950/80 backdrop-blur rounded-lg border border-slate-700/60 text-[10px] font-mono text-emerald-400">
@@ -349,8 +350,8 @@ ${campaign.googleSearch.sitelinks.map(s => `- **${s.title}**: ${s.desc}`).join('
                 
                 <div className="rounded-[24px] overflow-hidden aspect-[9/16] relative bg-slate-950">
                   <img 
-                    src={campaign.verticalImage} 
-                    alt={campaign.brandName}
+                    src={campaign.verticalImage}
+                    alt={imageAlt(campaign, 'vertical')}
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-transparent to-slate-950/40 p-4 flex flex-col justify-between">
@@ -449,7 +450,7 @@ ${campaign.googleSearch.sitelinks.map(s => `- **${s.title}**: ${s.desc}`).join('
               <div className="rounded-xl overflow-hidden border border-slate-800 aspect-[16/9] relative">
                 <img
                   src={campaign.landscapeImage}
-                  alt={campaign.brandName}
+                  alt={imageAlt(campaign, 'landscape')}
                   className="w-full h-full object-cover"
                 />
               </div>

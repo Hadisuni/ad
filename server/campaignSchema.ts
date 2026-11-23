@@ -24,6 +24,9 @@ const image = z
     message: 'must be an https address or an /images/<file> path',
   });
 
+// Well over the 125 a good alt text needs, so the checker can still say "too long" instead of the request failing.
+const altText = z.string().trim().max(300).optional();
+
 export const TONES = ['Urgent & High-Converting', 'Executive & Trustworthy', 'Relatable & Viral', 'Bold & Disruptive'] as const;
 
 export const campaignInputSchema = z.object({
@@ -39,6 +42,9 @@ export const campaignInputSchema = z.object({
   squareImage: image,
   verticalImage: image,
   landscapeImage: image,
+  squareImageAlt: altText,
+  verticalImageAlt: altText,
+  landscapeImageAlt: altText,
   metaFeed: z.object({
     hook: short,
     body: long,

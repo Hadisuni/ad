@@ -108,6 +108,30 @@ describe('POST /api/campaigns', () => {
     assert.equal(storedBody.data.campaign.brandName, 'SunAI Systems');
   });
 
+  test('returns the ad and SEO checks and how many are errors', async () => {
+    const tooLong = { ...validCampaign(), googleSearch: { ...validCampaign().googleSearch, headline1: 'SunAI ' + 'x'.repeat(40) } };
+    const body = await (await post(harness.baseUrl, tooLong)).json();
+    const ids = body.data.checks.map((check: { id: string }) => check.id);
+    assert.ok(ids.includes('google-headline-length'));
+    assert.ok(ids.includes('alt-missing-square'));
+    assert.equal(body.data.errorCount, 1);
+  });
+
+  test('stores alt text and stops reporting it missing', async () => {
+    const withAlt = { ...validCampaign(), squareImageAlt: 'A desk with a ringing phone', verticalImageAlt: 'A phone at night', landscapeImageAlt: 'A glass boardroom' };
+    const created = await (await post(harness.baseUrl, withAlt)).json();
+    assert.ok(!created.data.checks.some((check: { id: string }) => check.id.startsWith('alt-missing')));
+
+    const stored = await (await fetch(`${harness.baseUrl}/api/campaigns/${created.data.id}`)).json();
+    assert.equal(stored.data.campaign.squareImageAlt, 'A desk with a ringing phone');
+    assert.ok(Array.isArray(stored.data.checks));
+  });
+
+  test('refuses alt text over 300 characters', async () => {
+    const response = await post(harness.baseUrl, { ...validCampaign(), squareImageAlt: 'x'.repeat(301) });
+    assert.equal(response.status, 400);
+  });
+
   test('refuses an unknown tone and names the field', async () => {
     const response = await post(harness.baseUrl, { ...validCampaign(), tone: 'Shouty' });
     const body = await response.json();

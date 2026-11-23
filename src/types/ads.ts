@@ -14,6 +14,11 @@ export interface AdCampaign {
   verticalImage: string;
   landscapeImage: string;
 
+  // Alt text for the three images (what a screen reader says, and what search and social platforms index).
+  squareImageAlt?: string;
+  verticalImageAlt?: string;
+  landscapeImageAlt?: string;
+
   // Platform Specific Copies
   metaFeed: {
     hook: string;

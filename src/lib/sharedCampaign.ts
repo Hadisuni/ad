@@ -12,10 +12,15 @@ export type SharedCampaignState =
 
 type FetchFn = (input: string) => Promise<Response>;
 
-/** The campaign id in a query string, or null when there is none or it is not the 32 hex characters the server issues. */
+/** True for the 32 hex characters the server issues as a campaign id (the built-in presets have other ids). */
+export function isCampaignId(value: string): boolean {
+  return CAMPAIGN_ID.test(value);
+}
+
+/** The campaign id in a query string, or null when there is none or it is not one the server issued. */
 export function campaignIdFromSearch(search: string): string | null {
   const id = new URLSearchParams(search).get('c');
-  return id !== null && CAMPAIGN_ID.test(id) ? id : null;
+  return id !== null && isCampaignId(id) ? id : null;
 }
 
 export async function fetchSharedCampaign(id: string, fetchFn: FetchFn = (input) => fetch(input)): Promise<SharedCampaignState> {

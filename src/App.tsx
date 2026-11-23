@@ -24,6 +24,9 @@ import { AdCampaign } from './types/ads';
 import { AD_PRESETS } from './data/adPresets';
 import { AdGeneratorForm } from './components/AdGeneratorForm';
 import { AdPreviewHub } from './components/AdPreviewHub';
+import { ChecksPanel } from './components/ChecksPanel';
+import { VideoPanel } from './components/VideoPanel';
+import { isCampaignId } from './lib/sharedCampaign';
 import { InstallAppModal } from './components/InstallAppModal';
 import { useSharedCampaign } from './hooks/useSharedCampaign';
 
@@ -218,6 +221,8 @@ export default function App() {
               onGenerateVariations={handleGenerateVariations}
               lang={lang}
             />
+            <ChecksPanel campaign={campaign} lang={lang} />
+            {isCampaignId(campaign.id) && <VideoPanel campaignId={campaign.id} lang={lang} />}
           </div>
 
           {/* Right Column: Interactive Multi-Platform Preview Hub */}

@@ -233,7 +233,7 @@ Book your 14-day zero-risk Proof of Concept today. We'll process 1,000 of your a
                 {/* 4K Image Creative */}
                 <div className="aspect-square bg-slate-900 relative group overflow-hidden">
                   <img
-                    src="/src/assets/images/ad_smb_receptionist_square_1794454357509.jpg"
+                    src="/images/ad_smb_receptionist_square_1794454357509.jpg"
                     alt="SunAI SMB AI Receptionist Social Ad 4K"
                     className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
                   />
@@ -297,7 +297,7 @@ Book your 14-day zero-risk Proof of Concept today. We'll process 1,000 of your a
                   
                   <div className="rounded-[24px] overflow-hidden aspect-[9/16] relative bg-slate-950">
                     <img 
-                      src="/src/assets/images/ad_reels_phone_answering_1794454357907.jpg" 
+                      src="/images/ad_reels_phone_answering_1794454357907.jpg" 
                       alt="SunAI Vertical Story Ad 4K"
                       className="w-full h-full object-cover"
                     />
@@ -385,7 +385,7 @@ Book your 14-day zero-risk Proof of Concept today. We'll process 1,000 of your a
                 {/* 4K Visual */}
                 <div className="rounded-xl overflow-hidden border border-slate-800 aspect-[16/9] relative">
                   <img
-                    src="/src/assets/images/ad_linkedin_enterprise_banner_1794454358791.jpg"
+                    src="/images/ad_linkedin_enterprise_banner_1794454358791.jpg"
                     alt="SunAI LinkedIn 16:9 Banner"
                     className="w-full h-full object-cover"
                   />

@@ -1,0 +1,20 @@
+{
+  "id": "/",
+  "name": "AdForge AI - Social Media & B2B Ad Campaign Studio",
+  "short_name": "AdForge AI",
+  "description": "Generate high-converting 4K social media ad mockups, video scripts, LinkedIn B2B posts, and Google search campaigns.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#020617",
+  "background_color": "#020617",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

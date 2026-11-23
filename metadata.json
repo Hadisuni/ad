@@ -1,0 +1,8 @@
+{
+  "name": "Remix AdForge AI - Social Media \u0026 B2B Ad Campaign Studio",
+  "description": "Generate high-converting 4K social media ad mockups, video scripts, LinkedIn B2B posts, and Google search campaigns.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   Sparkles, 
   Layers, 
@@ -24,7 +24,11 @@ import { AdCampaign } from './types/ads';
 import { AD_PRESETS } from './data/adPresets';
 import { AdGeneratorForm } from './components/AdGeneratorForm';
 import { AdPreviewHub } from './components/AdPreviewHub';
+import { ChecksPanel } from './components/ChecksPanel';
+import { VideoPanel } from './components/VideoPanel';
+import { isCampaignId } from './lib/sharedCampaign';
 import { InstallAppModal } from './components/InstallAppModal';
+import { useSharedCampaign } from './hooks/useSharedCampaign';
 
 export default function App() {
   const [selectedPresetId, setSelectedPresetId] = useState<string>('preset-receptionist');
@@ -32,6 +36,15 @@ export default function App() {
   const [lang, setLang] = useState<'en' | 'fa'>('en');
   const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
   const [copiedNotification, setCopiedNotification] = useState<string | null>(null);
+
+  // A campaign sent by the automation is opened with /?c=<id>; it replaces the starting preset once it has loaded.
+  const shared = useSharedCampaign();
+  useEffect(() => {
+    if (shared.status !== 'ready') return;
+    setSelectedPresetId('');
+    setCampaign(shared.campaign);
+    setLang(shared.campaign.language);
+  }, [shared]);
 
   const handleApplyPreset = (presetId: string) => {
     setSelectedPresetId(presetId);
@@ -183,6 +196,19 @@ export default function App() {
           </div>
         </div>
 
+        {shared.status !== 'none' && shared.status !== 'ready' && (
+          <div
+            role="status"
+            className="p-3 rounded-xl border border-amber-500/30 bg-amber-950/20 text-xs text-amber-200"
+          >
+            {shared.status === 'loading'
+              ? (lang === 'fa' ? 'در حال بارگذاری کمپین…' : 'Loading the campaign…')
+              : shared.reason === 'notFound'
+                ? (lang === 'fa' ? 'این کمپین پیدا نشد یا منقضی شده است. یک الگوی آماده نمایش داده می‌شود.' : 'This campaign was not found or has expired. Showing a preset instead.')
+                : (lang === 'fa' ? 'بارگذاری کمپین ممکن نشد. دوباره تلاش کنید.' : 'The campaign could not be loaded. Try again in a minute.')}
+          </div>
+        )}
+
         {/* Workspace Split Layout: Editor Form (Left) & Live Preview Hub (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
@@ -195,6 +221,8 @@ export default function App() {
               onGenerateVariations={handleGenerateVariations}
               lang={lang}
             />
+            <ChecksPanel campaign={campaign} lang={lang} />
+            {isCampaignId(campaign.id) && <VideoPanel campaignId={campaign.id} lang={lang} />}
           </div>
 
           {/* Right Column: Interactive Multi-Platform Preview Hub */}
